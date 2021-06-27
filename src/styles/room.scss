@@ -74,21 +74,19 @@
         .user-info
         {
           display: flex;
-          justify-content: center;
           align-items: center;
 
           img
           {
             width: 50px;
             border-radius: 50%;
-            margin: 0 10px 0 0;
           }
 
           span
           {
+            margin-left: 8px;
             color: #29292E;
-            font-weight: 500;
-            font-size: 20 px;
+            font-size: 20px;
           }
         }
         
@@ -111,6 +109,11 @@
         }
       }
 
+    }
+
+    .question-list
+    {
+      margin: 32px 0;
     }
   }
 }
