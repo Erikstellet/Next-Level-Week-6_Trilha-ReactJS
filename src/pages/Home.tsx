@@ -65,7 +65,7 @@ export function Home()
       
         <button onClick={handleCreateRoom} className="create-room">
           <img src={googleIcon} alt="Logo do Google" />
-          <span>Crie sua sala com o Google</span>
+          <span>Crie sua sala com o Google</span> 
         </button>
 
         <div className="separator"> ou entre em uma sala </div>
@@ -79,7 +79,7 @@ export function Home()
 
       </div>
     </main>
-    
+
   </div>
   )
 }

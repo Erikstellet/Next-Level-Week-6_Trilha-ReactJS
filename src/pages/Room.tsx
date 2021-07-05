@@ -45,7 +45,7 @@ export function Room()
         avatar: user.avatar,
       },
       isHighlighted: false,
-      isAnswered: false
+      isAnswered: false,
     }
 
     await database.ref(`rooms/${params.id}/questions`).push(question);
@@ -110,7 +110,11 @@ export function Room()
         questions.map((question, i) => 
         {
           return (     
-          <Question key={i} content={question.content} author={question.author}>
+          <Question key={i} content={question.content} 
+                    author={question.author}
+                    isAnswered={question.isAnswered}
+                    isHighlighted={question.isHighlighted}
+          >
             <button className={`like-button ${question.likeId ? 'liked' : ''}`} 
                     type="button" aria-label="Marcar como gostei" 
                     onClick={() => handleLikeQuestion(question.id, question.likeId)}>
