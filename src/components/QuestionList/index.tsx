@@ -1,20 +1,68 @@
-import { ReactNode, useContext } from 'react';
+import { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { ThemeContext } from '../../contexts/ThemeContext';
 import { useRoom } from '../../hooks/useRoom';
 import { Question } from '../Question';
+import { database } from '../../services/firebase';
+import { useAuth } from '../../hooks/useAuth';
+
+import checkImg from '../../assets/images/check.svg';
+import answerImg from '../../assets/images/answer.svg';
+import deleteImg from '../../assets/images/delete.svg';
 
 type QuestionListTypes = 
 {
   id: string;
+  like?: boolean;
 }
 
+type RoomParams =
+{
+  id: string;
+}
 
-export function QuestionList(id: QuestionListTypes)
+export function QuestionList({id, like = false}: QuestionListTypes)
 {
   const { colors } = useContext(ThemeContext);
-  const params = useParams<typeof id>();
+  const { user } = useAuth();
+  const params = useParams<RoomParams>();
   const { title, questions } = useRoom(params.id);
+
+  async function handleLikeQuestion(questionId: string, likeId: string | undefined)
+  {
+    if(likeId)
+    {
+      await database.ref(`rooms/${params.id}/questions/${questionId}/likes/${likeId}`).remove();
+    }
+    else
+    {
+      await database.ref(`rooms/${params.id}/questions/${questionId}/likes`).push({authorId: user?.id});
+    }
+  }
+
+  async function handleHighlightQuestion(questionId: string)
+  {
+    await database.ref(`rooms/${params.id}/questions/${questionId}`).update
+    ({
+      isHighlighted: true,
+    });
+  }
+
+  async function handleAnsweredQuestion(questionId: string)
+  {
+    await database.ref(`rooms/${params.id}/questions/${questionId}`).update
+    ({
+      isAnswered: true,
+    });
+  }
+
+  async function handleDeleteQuestion(questionId: string)
+  {
+    if(window.confirm('Você tem certeza que deseja excluir essa pergunta?'))
+    {
+      await database.ref(`rooms/${params.id}/questions/${questionId}`).remove();
+    }
+  }
 
   return (
   <div className="question-list">
@@ -25,10 +73,16 @@ export function QuestionList(id: QuestionListTypes)
       <Question key={i} content={question.content} 
                 author={question.author}
                 isAnswered={question.isAnswered}
-                isHighlighted={question.isHighlighted}
-      >
+                isHighlighted={question.isHighlighted}>
+
+      {
+        like
+        
+        ?
+
         <button className={`like-button ${question.likeId ? 'liked' : ''}`} 
-                  type="button" aria-label="Marcar como gostei" >
+                  type="button" aria-label="Marcar como gostei" 
+                  onClick={() => handleLikeQuestion(question.id, question.likeId)}>
 
           { question.likeCount > 0 && <span> {question.likeCount} </span> }
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -36,6 +90,27 @@ export function QuestionList(id: QuestionListTypes)
           </svg>
 
         </button>
+
+        :
+        
+        <>
+          {
+            !question.isAnswered &&
+              <>
+                <button type="button" onClick={() => handleHighlightQuestion(question.id)}>
+                <img src={checkImg} alt="Dar destaque a pergunta"/>  
+                </button>
+                <button type="button" onClick={() => handleAnsweredQuestion(question.id)}>
+                  <img src={answerImg} alt="Responder Pergunta"/>  
+                </button>
+              </>
+          }
+        
+          <button type="button" onClick={() => handleDeleteQuestion(question.id)}>
+            <img src={deleteImg} alt="Excluir pergunta"/>  
+          </button>
+        </>
+      }
       </Question>)
     })
   }

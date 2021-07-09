@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { database } from '../../services/firebase';
 
 import { ThemeContext } from '../../contexts/ThemeContext';

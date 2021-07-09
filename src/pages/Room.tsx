@@ -4,13 +4,13 @@ import { database } from '../services/firebase';
 
 import { useAuth } from '../hooks/useAuth';
 import { Button } from "../components/Button";
-import { Question } from "../components/Question";
-
-import "../styles/room.scss";
 import { useRoom } from '../hooks/useRoom';
 import { HeaderRoom } from '../components/HeaderRoom';
 import { RoomTitle } from '../components/RoomTitle';
 import { QuestionList } from '../components/QuestionList';
+
+import "../styles/room.scss";
+import { ThemeButton } from '../components/ThemeButton';
 
 type RoomParams =
 {
@@ -51,31 +51,18 @@ export function Room()
     setNewQuestion('');
   }
 
-  async function handleLikeQuestion(questionId: string, likeId: string | undefined)
-  {
-    if(likeId)
-    {
-      await database.ref(`rooms/${params.id}/questions/${questionId}/likes/${likeId}`).remove();
-    }
-    else
-    {
-      await database.ref(`rooms/${params.id}/questions/${questionId}/likes`).push({authorId: user?.id});
-    }
-  }
-
   return (
   <div id="page-room">
 
     <HeaderRoom id={params.id}/>
-
+    <ThemeButton />
+    
     <main className="main-room">
-
       <RoomTitle roomTitle={title} numQuestions={questions.length} />
 
       <form onSubmit={handleSendQuestion}>
-        <textarea placeholder="O que você quer Perguntar?"
+        <textarea placeholder="O que você quer Perguntar?" value={newQuestion}
                   onChange={event => setNewQuestion(event.target.value)}
-                  value={newQuestion}
         />
         <div className="form-footer">
           { 
@@ -83,17 +70,16 @@ export function Room()
                      <img src={user.avatar} alt={user.name}/>
                      <span>{user.name}</span>
                    </div>
-                 : <>
-                     <span> Para enviar uma pergunta, <button>faça seu login</button>.</span>
-                   </>
+
+                 : <span> Para enviar uma pergunta, <button>faça seu login</button>.</span>   
           }
           <Button type="submit" disabled={!user}> Enviar pergunta </Button>
         </div>
       </form> 
-
-      <QuestionList id={params.id}/>
-
+      
+      <QuestionList id={params.id} like/>
     </main>
+
   </div> 
   )
 }
