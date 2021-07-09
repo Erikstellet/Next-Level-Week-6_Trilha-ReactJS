@@ -1,6 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from 'react';
 import { auth, firebase } from '../services/firebase';
-
 export const AuthContext = createContext({} as AuthContextType);
 
 type User =
@@ -13,16 +12,16 @@ type User =
 type AuthContextType =
 {
   user: User | undefined;
-  signInWithGoogle: () => Promise<void>;  
+  signInWithGoogle: () => Promise<void>; 
 }
 
-type AuthContexProviderProps =
+type AuthContextProviderProps =
 { 
   children: ReactNode;
 }
 
-export function AuthContexProvider(props: AuthContexProviderProps)
-{
+export function AuthContextProvider(props: AuthContextProviderProps)
+{;
   const [user, setUser] = useState<User>();
 
   useEffect(() => 
@@ -57,8 +56,6 @@ export function AuthContexProvider(props: AuthContexProviderProps)
   {
     const provider = new firebase.auth.GoogleAuthProvider();
     const result = await auth.signInWithPopup(provider);
-
-    console.log(result);
 
     if (result.user)
     {
