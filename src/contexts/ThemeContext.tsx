@@ -21,8 +21,11 @@ export function ThemeContextProvider(props: ThemeContexProviderProps)
 
   const colors =
   {
-    gray50: theme ? "#F7F8FA" : "#7a7a7a",
-    violet: theme ? "#3c096c" : "#835afd",
+
+    violet: theme ? "#835afd": "#5a189a",
+    gray: theme ? "#343a40" : "#e9ecef",
+    purple: theme ? "#835afd" : "#5e32e0",
+    pink: theme ? "#fdc5f5" : "#E559f9"
   }
 
   return (

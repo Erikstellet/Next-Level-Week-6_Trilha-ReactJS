@@ -9,6 +9,7 @@ import { useAuth } from '../../hooks/useAuth';
 import checkImg from '../../assets/images/check.svg';
 import answerImg from '../../assets/images/answer.svg';
 import deleteImg from '../../assets/images/delete.svg';
+import { QuestionListContainer } from './styles';
 
 type QuestionListTypes = 
 {
@@ -65,7 +66,7 @@ export function QuestionList({id, like = false}: QuestionListTypes)
   }
 
   return (
-  <div className="question-list">
+  <QuestionListContainer>
   {
     questions.map((question, i) => 
     {
@@ -114,6 +115,6 @@ export function QuestionList({id, like = false}: QuestionListTypes)
       </Question>)
     })
   }
-  </div>
+  </QuestionListContainer>
   )
 }

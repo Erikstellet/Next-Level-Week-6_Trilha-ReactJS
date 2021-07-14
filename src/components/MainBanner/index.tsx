@@ -9,9 +9,9 @@ export function MainBanner()
 
   return (
   <AsideContainer theme={colors}>
-      <img src={illustration} alt="Ilustração de troca de perguntas"/>
-      <strong>Crie salas de Q&amp;A ao-vivo</strong>
-      <p>Tire as dúvidas da sua audiência em tempo-real</p>
+    <img src={illustration} alt="Ilustração de troca de perguntas"/>
+    <strong>Crie salas de Q&amp;A ao-vivo</strong>
+    <p>Tire as dúvidas da sua audiência em tempo-real</p>
   </AsideContainer>
   )
 }

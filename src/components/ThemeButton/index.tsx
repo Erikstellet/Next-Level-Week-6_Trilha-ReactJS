@@ -5,10 +5,10 @@ import {ButtonContainer} from './styles';
 
 export function ThemeButton()
 {
-  const { theme, setTheme } = useContext(ThemeContext);
-
+  const { theme, setTheme, colors } = useContext(ThemeContext);
+  
   return (
-  <ButtonContainer>
+  <ButtonContainer theme={colors}>
     <input onClick={() => setTheme(!theme)} 
            type="checkbox" aria-label="Selecione o Tema"/>
     {

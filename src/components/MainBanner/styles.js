@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import colors from '../../styles/colorPalettes'
 
 export const AsideContainer = styled.aside
 `

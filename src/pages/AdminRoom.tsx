@@ -6,7 +6,6 @@ import { RoomTitle } from '../components/RoomTitle';
 import { QuestionList } from '../components/QuestionList';
 
 import "../styles/adminRoom.scss";
-import { ThemeButton } from '../components/ThemeButton';
 
 type RoomParams =
 {
@@ -22,7 +21,6 @@ export function AdminRoom()
   <div id="page-room">
 
     <HeaderRoom EndRoom id={params.id}/>
-    <ThemeButton />
     
     <main className="main-room">
       <RoomTitle roomTitle={title} numQuestions={questions.length}/>      

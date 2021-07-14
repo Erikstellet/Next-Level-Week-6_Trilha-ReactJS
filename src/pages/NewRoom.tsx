@@ -3,12 +3,12 @@ import { Link, useHistory } from 'react-router-dom';
 import { database } from '../services/firebase';
 
 import { MainBanner } from '../components/MainBanner';
-import { Button } from '../components/Button';
 import { useAuth } from '../hooks/useAuth';
 
 import logoImg from '../assets/images/logo.svg';
 import "../styles/auth.scss"
 import { ThemeButton } from '../components/ThemeButton';
+import { Button } from '../components/Button';
 
 export function NewRoom()
 {

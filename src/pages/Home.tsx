@@ -8,9 +8,9 @@ import "../styles/auth.scss"
 import { MainBanner } from '../components/MainBanner';
 import { ThemeButton } from '../components/ThemeButton';
 
-import { Button } from '../components/Button';
 import { useAuth } from '../hooks/useAuth';
 import { database } from '../services/firebase';
+import { Button } from '../components/Button';
 
 export function Home()
 {

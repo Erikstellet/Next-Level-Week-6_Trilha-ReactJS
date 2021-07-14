@@ -3,10 +3,12 @@ import { useHistory } from 'react-router-dom';
 import { database } from '../../services/firebase';
 
 import { ThemeContext } from '../../contexts/ThemeContext';
-import { RoomCode } from '../RoomCode';
 
 import logoImg from '../../assets/images/logo.svg';
 import { Button } from '../Button';
+import { HeaderContainer } from './styles';
+import { ThemeButton } from '../ThemeButton';
+import { RoomCode } from '../RoomCode';
 
 type HeaderRoomTypes = 
 {
@@ -29,21 +31,26 @@ export function HeaderRoom({ id, EndRoom = false }: HeaderRoomTypes)
     history.push('/');
   }
 
-  return (
-   <header>
-     <div className="content">
-       <img src={logoImg} alt="Letmeask"/>
-      <div>
-        <RoomCode code={id} />
-        {
-          EndRoom &&
+  function Orientation()
+  {
+    return EndRoom ? '3fr 3fr 4fr' : '1fr 1fr'; 
+  }
 
-          <Button isOutlined onClick={() => handleEndRoom()}>
-            Encerrar Sala
-          </Button>
+  return (
+   <HeaderContainer theme={colors} orientation={Orientation()}>
+     <div className="content">
+        <a href="/ ">{ <img src={logoImg} alt="Letmeask"/> }</a>
+ 
+        {
+          EndRoom && <Button isOutlined onClick={() => handleEndRoom()}>
+                       Encerrar Sala
+                     </Button>
         }
-      </div>
+
+        <RoomCode code={id} />
+
+       <ThemeButton />
      </div>
-   </header>
+   </HeaderContainer>
   )
 }

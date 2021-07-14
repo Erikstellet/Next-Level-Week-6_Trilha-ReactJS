@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { ThemeContext } from '../../contexts/ThemeContext';
+import { RoomTitleContainer } from './styles';
 
 type RoomTitleTypes = 
 {
@@ -12,7 +13,7 @@ export function RoomTitle({ roomTitle, numQuestions }: RoomTitleTypes)
   const { colors } = useContext(ThemeContext);
 
   return (
-  <div className="room-title">  
+  <RoomTitleContainer>  
     <h1>{roomTitle}</h1>
   
     <span>
@@ -23,6 +24,6 @@ export function RoomTitle({ roomTitle, numQuestions }: RoomTitleTypes)
         : ` pergunta`
       }
     </span>
-  </div>
+  </RoomTitleContainer>
   )
 }

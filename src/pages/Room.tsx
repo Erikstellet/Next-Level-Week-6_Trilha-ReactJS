@@ -3,14 +3,13 @@ import { useParams } from 'react-router-dom';
 import { database } from '../services/firebase';
 
 import { useAuth } from '../hooks/useAuth';
-import { Button } from "../components/Button";
 import { useRoom } from '../hooks/useRoom';
 import { HeaderRoom } from '../components/HeaderRoom';
 import { RoomTitle } from '../components/RoomTitle';
 import { QuestionList } from '../components/QuestionList';
 
 import "../styles/room.scss";
-import { ThemeButton } from '../components/ThemeButton';
+import { Button } from '../components/Button';
 
 type RoomParams =
 {
@@ -55,7 +54,6 @@ export function Room()
   <div id="page-room">
 
     <HeaderRoom id={params.id}/>
-    <ThemeButton />
     
     <main className="main-room">
       <RoomTitle roomTitle={title} numQuestions={questions.length} />
@@ -78,8 +76,8 @@ export function Room()
       </form> 
       
       <QuestionList id={params.id} like/>
+      
     </main>
-
   </div> 
   )
 }
